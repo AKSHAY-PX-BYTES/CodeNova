@@ -1,0 +1,31 @@
+name: Auto-Unzip Files
+
+on:
+  push:
+    paths:
+      - '*.zip' # Trigger workflow when a zip file is uploaded
+    branches:
+      - main # Trigger only on the main branch
+
+jobs:
+  unzip:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Unzip
+        run: sudo apt-get install unzip
+
+      - name: Unzip Files
+        run: |
+          for file in *.zip; do
+            unzip -o "$file" -d ./;
+            rm "$file"; # Remove the zip file after unzipping
+          done
+
+      - name: Push Changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Unzipped files from uploaded ZIP"
+          branch: main
