@@ -20,8 +20,8 @@ jobs:
 
       - name: Commit unzipped files
         run: |
-          git config --global user.name "Your Name"
-          git config --global user.email "youremail@example.com"
+          git config --global user.name "AKSHAY-PX-BYTES"
+          git config --global user.email "apakshay582@gmail.com"
           git add .
           git commit -m "Extracted ZIP contents"
           git push
