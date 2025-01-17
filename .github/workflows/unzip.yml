@@ -1,0 +1,27 @@
+name: Unzip File
+
+on:
+  push:
+    paths:
+      - '*.zip'  # This triggers the action for ZIP files
+
+jobs:
+  unzip:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Unzip ZIP file
+        run: |
+          mkdir extracted_files
+          unzip '*.zip' -d extracted_files/
+
+      - name: Commit unzipped files
+        run: |
+          git config --global user.name "Your Name"
+          git config --global user.email "youremail@example.com"
+          git add .
+          git commit -m "Extracted ZIP contents"
+          git push
